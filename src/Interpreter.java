@@ -138,33 +138,24 @@ public class Interpreter {
 
             System.out.println(formatted);
         });
-        commandMap.put("outputc", () -> {
-
-        });
-        commandMap.put("outputd", () -> {
-
-        });
-        commandMap.put("outputx", () -> {
-
-        });
-        commandMap.put("outputX", () -> {
-
-        });
-        commandMap.put("+", () -> {
-
-        });
-        commandMap.put("-", () -> {
-
-        });
-        commandMap.put("*", () -> {
-
-        });
-        commandMap.put("/", () -> {
-
-        });
-        commandMap.put("%", () -> {
-
-        });
+        commandMap.put("outputc", () -> System.out.print(
+                (char) currCube.getRWNode().getPayload()));
+        commandMap.put("outputd", () -> System.out.println(
+                currCube.getRWNode().getPayload() & 0xff));
+        commandMap.put("outputx", () ->
+                System.out.format("%x%n", currCube.getRWNode().getPayload()));
+        commandMap.put("outputX", () ->
+                System.out.format("%X%n", currCube.getRWNode().getPayload()));
+        commandMap.put("+", () -> currCube.getRWNode().setPayload((byte)
+                (currCube.getRWNode().getPayload() + trie.getGlobalByte())));
+        commandMap.put("-", () -> currCube.getRWNode().setPayload((byte)
+                (currCube.getRWNode().getPayload() - trie.getGlobalByte())));
+        commandMap.put("*", () -> currCube.getRWNode().setPayload((byte)
+                (currCube.getRWNode().getPayload() * trie.getGlobalByte())));
+        commandMap.put("/", () -> currCube.getRWNode().setPayload((byte)
+                (currCube.getRWNode().getPayload() / trie.getGlobalByte())));
+        commandMap.put("%", () -> currCube.getRWNode().setPayload((byte)
+                (currCube.getRWNode().getPayload() % trie.getGlobalByte())));
         commandMap.put("{", () -> {
 
         });
@@ -178,7 +169,26 @@ public class Interpreter {
 
         });
         commandMap.put("", () -> {
+
         });
+        commandMap.put("U", () ->);
+        commandMap.put("U2", () ->);
+        commandMap.put("U'", () ->);
+        commandMap.put("L", () ->);
+        commandMap.put("L2", () ->);
+        commandMap.put("L'", () ->);
+        commandMap.put("F", () ->);
+        commandMap.put("F2", () ->);
+        commandMap.put("F'", () ->);
+        commandMap.put("R", () ->);
+        commandMap.put("R2", () ->);
+        commandMap.put("R'", () ->);
+        commandMap.put("B", () ->);
+        commandMap.put("B2", () ->);
+        commandMap.put("B'", () ->);
+        commandMap.put("D", () ->);
+        commandMap.put("D2", () ->);
+        commandMap.put("D'", () ->);
 
         return commandMap;
     }
@@ -202,6 +212,6 @@ public class Interpreter {
 //        System.out.println(Arrays.toString(subj.instructions));
 
         Scanner in = new Scanner(System.in);
-        System.out.println(in.next("."));
+        System.out.format("%X%n", 0xa3);
     }
 }

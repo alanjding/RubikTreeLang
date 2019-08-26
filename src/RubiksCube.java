@@ -2,15 +2,15 @@ public class RubiksCube {
 
     /**
      * Cube cell layout:
-     *
-     *          17 18
-     *          19 20
-     *
-     *  21 22   23  0    1  2    3  4
-     *   5  6    7  8    9 10   11 12
-     *
-     *          13 14
-     *          15 16
+     * <p>
+     * 17 18
+     * 19 20
+     * <p>
+     * 21 22   23  0    1  2    3  4
+     * 5  6    7  8    9 10   11 12
+     * <p>
+     * 13 14
+     * 15 16
      */
 
     private Node[] cube;
@@ -51,7 +51,7 @@ public class RubiksCube {
         return id;
     }
 
-    public Node getRWNode() {
+    Node getRWNode() {
         return cube[0];
     }
 
@@ -78,8 +78,9 @@ public class RubiksCube {
 
     /**
      * Turns the virtual Rubik's Cube as specified by the method arguments.
-     * @param face  Which face to turn: can be U, L, F, R, B, or D.
-     * @param type  Number of 90 degree rotations. -1 or 3 can be used for "prime".
+     *
+     * @param face Which face to turn: can be U, L, F, R, B, or D.
+     * @param type Number of 90 degree rotations. -1 or 3 can be used for "prime".
      */
     public void turn(char face, int type) {
         int[][] cycles;
@@ -115,14 +116,14 @@ public class RubiksCube {
 
     public String toString() {
         return String.format("%15s%-7s%-8s\n", "", cube[17], cube[18])
-             + String.format("%15s%-7s%-8s\n", "", cube[19], cube[20])
-             + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",
-                     cube[21], cube[22], cube[23], cube[0],
-                     cube[1], cube[2], cube[3], cube[4])
-             + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",
-                     cube[5], cube[6], cube[7], cube[8],
-                     cube[9], cube[10], cube[11], cube[12])
-             + String.format("%15s%-7s%-8s\n", "", cube[13], cube[14])
-             + String.format("%15s%-7s%-8s", "", cube[15], cube[16]);
+                + String.format("%15s%-7s%-8s\n", "", cube[19], cube[20])
+                + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",
+                cube[21], cube[22], cube[23], cube[0],
+                cube[1], cube[2], cube[3], cube[4])
+                + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",
+                cube[5], cube[6], cube[7], cube[8],
+                cube[9], cube[10], cube[11], cube[12])
+                + String.format("%15s%-7s%-8s\n", "", cube[13], cube[14])
+                + String.format("%15s%-7s%-8s", "", cube[15], cube[16]);
     }
 }
