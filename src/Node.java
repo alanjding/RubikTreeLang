@@ -12,15 +12,19 @@ public class Node {
         this.trie = trie;
     }
 
-    public void setPayload(byte b) {
+    void setPayload(byte b) {
         payload = b;
     }
 
-    public byte getPayload() {
+    byte getPayload() {
         return payload;
     }
 
-    public void initializeChildRubiksCube() {
+    RubiksCube getChild() {
+        return child;
+    }
+
+    void initializeChildRubiksCube() {
         child = new RubiksCube(cube, trie);
     }
 

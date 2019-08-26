@@ -10,23 +10,23 @@ public class RubiksTrie {
         global = 0;
     }
 
-    public RubiksCube getRoot() {
+    RubiksCube getRoot() {
         return root;
     }
 
-    public void incrementGlobalByte() {
+    void incrementGlobalByte() {
         global++;
     }
 
-    public void decrementGlobalByte() {
+    void decrementGlobalByte() {
         global--;
     }
 
-    public void setGlobalByte(byte b) {
+    void setGlobalByte(byte b) {
         global = b;
     }
 
-    public byte getGlobalByte() {
+    byte getGlobalByte() {
         return global;
     }
 

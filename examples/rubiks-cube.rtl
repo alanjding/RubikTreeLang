@@ -1,0 +1,16 @@
+# Sets a single cube's memory cells like the
+# standard Rubik's Cube stickering scheme.
+
+gsetd 6
+{
+    setd 6 -
+    F setd 6 -
+    F setd 6 -
+    F setd 6 -
+    g-- F x
+    setd 6 -
+    F setd 6 -
+    F setd 6 -
+    F setd 6 -
+    g-- F y
+}

@@ -22,12 +22,15 @@ Standard moves:
 - `L`: rotate the left layer 90 degrees clockwise
 - `F`: rotate the front layer 90 degrees clockwise
 - `B`: rotate the back layer 90 degrees clockwise
+
 Any of the above moves with a `2` following it (e.g. `U2`) correspond to a 180 degree rotation, and any of the moves with a `'` (single quote, "prime") following it (e.g. `F'`) correspond to a 90 degree counterclockwise rotation.
 
 We also have whole cube rotations:
 - `x`: rotate entire cube on `R`
 - `y`: rotate entire cube on `U`
 - `z`: rotate entire cube on `F`
+
+Just like with the face turns, we can append `'` or `2` to each whole cube rotation to the same effect.
 
 ### Where is the read-write head?
 
@@ -66,9 +69,9 @@ A no-arg command that increments or decrements the global byte.
 
 ### Input `input_`
 
-The input unary operator sets the payload of the cell at the read-write head to the next character/decimal integer/hex string/binary string in the standard input stream. If there is nothing in stdin, the interpreter will wait for stdin to become populated. The underscore in the `input` call can take on the following values depending on how the user wants the interpreter to treat the input:
+The input unary operator sets the payload of the cell at the read-write head to the next character/decimal integer/hex string/binary string in the standard input stream. The underscore in the `input` call can take on the following values depending on how the user wants the interpreter to treat the input:
 - `b` (`inputb`): read the earliest-occurring longest consecutive sequence of characters that are either `'0'` or `'1'` as a binary string. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 8 characters.
-- `c` (`inputc`): read the next character in stdin as a character literal.
+- `c` (`inputc`): read the next character in stdin as a character literal. If no characters remain in stdin and `inputc` is called, then 0 is written to the payload byte.
 - `d` (`inputd`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9]` as a decimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the integer literal is greater than 255. Arguments larger than `INT_MAX` will cause the interpreter to throw an exception.
 - `x` (`inputx`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9A-Fa-f]` as a hexadecimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 2 characters.
 
