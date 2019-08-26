@@ -14,6 +14,14 @@ public class RubiksTrie {
         return root;
     }
 
+    public void incrementGlobalByte() {
+        global++;
+    }
+
+    public void decrementGlobalByte() {
+        global--;
+    }
+
     public void setGlobalByte(byte b) {
         global = b;
     }
@@ -22,7 +30,7 @@ public class RubiksTrie {
         return global;
     }
 
-    public int assignCubeID() {
+    int assignCubeID() {
         int id = numCubes;
         numCubes++;
         return id;

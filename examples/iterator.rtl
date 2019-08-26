@@ -1,0 +1,15 @@
+# Systematically traverses all cells of a Rubik's Cube and populates the cells
+# with an integer corresponding to the order in which they were visited.
+
+gsetd 24
+{
+    setd 24 - g--
+    F setd 24 - g--
+    F setd 24 - g--
+    F setd 24 - g--
+    F x setd 24 - g--
+    F setd 24 - g--
+    F setd 24 - g--
+    F setd 24 - g--
+    F y
+}
