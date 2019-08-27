@@ -213,6 +213,15 @@ public class Interpreter {
         // time around
         commandMap.put("}", () -> pc = openBracketLocations.pop() - 1);
 
+        commandMap.put("[", () -> {
+            if (trie.getGlobalByte() != 0)
+                while (!instructions[pc].equals("]")) pc++;
+            else
+                openBracketLocations.push(pc);
+        });
+
+        commandMap.put("]", () -> pc = openBracketLocations.pop() - 1);
+
         commandMap.put("v", () -> {
             Node node = currCube.getRWNode();
             if (node.getChild() == null) {
@@ -327,10 +336,21 @@ public class Interpreter {
             }
     }
 
-    public static void main(String[] args) {
-        Interpreter subj = new Interpreter(Paths.get("../examples/iterator.rtl"));
-        System.out.println(Arrays.toString(subj.instructions));
-        subj.processRemainingCommands();
-        System.out.println(subj.currCube.toString());
+    /***** These getters are for the visualizer *****/
+
+    RubiksTrie getTrie() {
+        return trie;
+    }
+
+    RubiksCube getCurrCube() {
+        return currCube;
+    }
+
+    String[] getInstructions() {
+        return instructions;
+    }
+
+    int getProgramCounter() {
+        return pc;
     }
 }

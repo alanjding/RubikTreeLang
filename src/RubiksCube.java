@@ -110,8 +110,9 @@ public class RubiksCube {
     }
 
     public String toString() {
-        return "Rubik's Cube ID: " + getID()
-                + String.format("\n\n%15s%-7s%-8s\n", "", cube[17], cube[18])
+        return "Rubik's Cube ID: " + getID() +
+                "Parent Rubik's Cube ID: " + getParent().getID() +
+                String.format("\n\n%15s%-7s%-8s\n", "", cube[17], cube[18])
                 + String.format("%15s%-7s%-8s\n\n", "", cube[19], cube[20])
                 + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",
                 cube[21], cube[22], cube[23], cube[0],

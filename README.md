@@ -92,7 +92,13 @@ These are no-arg operators that take input from the cell under the read-write he
 
 ### Enter-if-nonzero brackets `{`, `}`
 
-At an open enter-if-nonzero bracket, the interpreter checks whether the global byte is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close enter-if-nonzero bracket. Once the program counter reaches the close enter-if-nonzero bracket, it goes back to the corresponding open enter-if-unequal bracket, and the condition (whether the payload of the cell under the read-write head is equal) is checked again. One can think of this as a while loop with an implicit counter down to zero.
+At an open enter-if-nonzero bracket, the interpreter checks whether the global byte is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close enter-if-nonzero bracket. Once the program counter reaches the close enter-if-nonzero bracket, it goes back to the corresponding open enter-if-unequal bracket, and the condition (whether the payload of the cell under the read-write head is equal) is checked again.
+
+### Enter-if-zero brackets `[`, `]`
+
+Works in the same way as the enter-if-nonzero brackets but enters if (and only if) the global byte is `0`.
+
+N.B.: nothing will stop you from intermixing `{` and `[` (e.g. `{[}]`), but the interpreter's behavior is undefined in this case!
 
 ### Traverse down `v` and traverse up `^`
 
