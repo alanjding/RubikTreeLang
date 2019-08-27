@@ -7,7 +7,7 @@ Unfortunately, on a single 2x2x2 Rubik's Cube, we only have 24 slots of memory t
 
 However, our tape is not yet "contiguous": there is no way for memory on one cube to move to another cube. As a result, the language supports an unsigned one-byte chunk of global storage accessible from any cube. Recall that the language only has one read-write head, so the global storage doubles as a way to support the arithmetic and enter-if-nonzero commands.
 
-RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, and traverse up `^`. Comments are also supported with the command `#`.
+RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, and traverse up `^`. Comments are also supported with the command `#`.
 
 Commands and their arguments are to be delimited by whitespace of some sort.
 
@@ -75,7 +75,7 @@ The input unary operator sets the payload of the cell at the read-write head to 
 - `d` (`inputd`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9]` as a decimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the integer literal is greater than 255. Arguments larger than `INT_MAX` will cause the interpreter to throw an exception.
 - `x` (`inputx`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9A-Fa-f]` as a hexadecimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 2 characters.
 
-`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated) stores `0` at the payload of the cell under the read-write head.
+`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated until it reads the EOF char) stores `0` at the payload of the cell under the read-write head. `inputc` will also store a `0` upon reading EOF (but not `\n`).
 
 ### Output `output_`
 

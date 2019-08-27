@@ -291,7 +291,8 @@ public class Interpreter {
         });
 
         // There might be empty strings in the instruction array
-        commandMap.put("", () -> {});
+        commandMap.put("", () -> {
+        });
 
         return commandMap;
     }
@@ -327,7 +328,7 @@ public class Interpreter {
     }
 
     public static void main(String[] args) {
-        Interpreter subj = new Interpreter(Paths.get("examples/cat.rtl"));
+        Interpreter subj = new Interpreter(Paths.get("../examples/iterator.rtl"));
         System.out.println(Arrays.toString(subj.instructions));
         subj.processRemainingCommands();
         System.out.println(subj.currCube.toString());
