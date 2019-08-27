@@ -1,4 +1,5 @@
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Visualizer {
 
@@ -47,24 +48,28 @@ public class Visualizer {
     }
 
     /**
-     * Handles user control of the visualizer.
+     * Handles user control of the Visualizer.
      */
     private void run() {
         System.out.println("Welcome to the RubikTreeLang Visualizer.");
         System.out.println("Things you can tell the Visualizer to do:");
-        System.out.println("\tstep n (n is a non-negative integer)");
+        System.out.println("\tstep n (n is a non-negative integer):");
         System.out.println("\t\tAdvances program by at most n steps and " +
                 "displays the program state at the end of each step.");
-        System.out.println("\tstepuntil pc (pc is a non-negative integer)");
+        System.out.println("\tstepuntil pc (pc is a non-negative integer):");
         System.out.println("\t\tAdvances program until its program counter " +
                 "reaches the value pc and displays the program state at the " +
                 "end of each step.");
         System.out.println("\tstepuntilend:");
         System.out.println("\t\tFinishes execution of the program and " +
                 "displays the program state at the end of each step.");
-        System.out.println("\tinstructions:");
+        System.out.println("\tinstruction:");
         System.out.println("\t\tPrints the instruction sequence as an indexed" +
                 "list.");
+        System.out.println("\texit:");
+        System.out.println("\t\tExits the Visualizer.");
+
+        Scanner in = new Scanner(System.in);
     }
 
     /**
