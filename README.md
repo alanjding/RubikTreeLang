@@ -75,7 +75,7 @@ The input unary operator sets the payload of the cell at the read-write head to 
 - `d` (`inputd`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9]` as a decimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the integer literal is greater than 255. Arguments larger than `INT_MAX` will cause the interpreter to throw an exception.
 - `x` (`inputx`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9A-Fa-f]` as a hexadecimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 2 characters.
 
-`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` stores `0` at the payload of the cell under the read-write head.
+`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated) stores `0` at the payload of the cell under the read-write head.
 
 ### Output `output_`
 
