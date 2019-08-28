@@ -1,5 +1,5 @@
 # RubikTreeLang
-A minimalistic esoteric programming language with a Rubik's Cube tree memory tape. How exactly does that work, you ask?
+A minimalistic esoteric programming language with a Rubik's Cube tree (well it's actually more of a trie) memory tape. How exactly does that work, you ask?
 
 RubikTreeLang is modeled somewhat after the Turing machine with one read-write head and a shiftable infinite memory tape. In this language, the read-write head and its functionality remain very similar to the Turing machine. However, instead of to a one-dimensional sequential memory, data is written to stickers on a virtual 2x2x2 Rubik's Cube. Each sticker cell contains an (unsigned) one-byte payload. Shifting the tape left and right is instead replaced with legal twists of the Rubik's Cube.
 
