@@ -57,6 +57,16 @@ public class RubiksCube {
         return parent;
     }
 
+    /**
+     * Not a language feature: this is for the visualizer to search for a cube
+     * with a specified ID.
+     *
+     * @return
+     */
+    Node[] getNodes() {
+        return cube;
+    }
+
     // Modifies cube (Node array)
     private void cyclePermute(int[] indices) {
         int cycleSize = indices.length;

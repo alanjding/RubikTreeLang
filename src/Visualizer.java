@@ -16,26 +16,26 @@ public class Visualizer {
      * Prints all valid Visualizer commands.
      */
     private void displayValidCommands() {
-        System.err.println("Things you can tell the Visualizer to do:");
-        System.err.println("\tstep n (n is a non-negative integer):");
-        System.err.println("\t\tAdvances program by at most n steps and " +
+        System.out.println("Things you can tell the Visualizer to do:");
+        System.out.println("\tstep n (n is a non-negative integer):");
+        System.out.println("\t\tAdvances program by at most n steps and " +
                 "displays the program state at the end of each step.");
-        System.err.println("\tstepuntil pc (pc is a non-negative integer):");
-        System.err.println("\t\tAdvances program until its program counter " +
+        System.out.println("\tstepuntil pc (pc is a non-negative integer):");
+        System.out.println("\t\tAdvances program until its program counter " +
                 "reaches the value pc and displays the program state at the " +
                 "end of each step.");
-        System.err.println("\tstepuntilend:");
-        System.err.println("\t\tFinishes execution of the program and " +
+        System.out.println("\tstepuntilend:");
+        System.out.println("\t\tFinishes execution of the program and " +
                 "displays the program state at the end of each step.");
-        System.err.println("\tdisplaycube id (id is a non-negative integer):");
-        System.err.println("\t\tDisplays the cube with ID id.");
-        System.err.println("\trestart:");
-        System.err.println("\t\tResets the program's state/memory.");
-        System.err.println("\tcode:");
-        System.err.println("\t\tPrints the code's instruction sequence as an " +
+        System.out.println("\tdisplaycube id (id is a non-negative integer):");
+        System.out.println("\t\tDisplays the cube with ID id.");
+        System.out.println("\trestart:");
+        System.out.println("\t\tResets the program's state/memory.");
+        System.out.println("\tcode:");
+        System.out.println("\t\tPrints the code's instruction sequence as an " +
                 "indexed list.");
-        System.err.println("\texit:");
-        System.err.println("\t\tExits the Visualizer.");
+        System.out.println("\texit:");
+        System.out.println("\t\tExits the Visualizer.");
     }
 
     /**
@@ -88,7 +88,7 @@ public class Visualizer {
                 step();
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println(
+                System.out.println(
                         "stepuntil or stepuntilend returned prematurely.");
                 return;
             }
@@ -111,7 +111,7 @@ public class Visualizer {
                 step();
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("step returned prematurely.");
+                System.out.println("step returned prematurely.");
                 return;
             }
         }
@@ -120,15 +120,25 @@ public class Visualizer {
     }
 
     /**
+     * Returns a pointer to the Rubik's Cube with ID id.
+     *
+     * @param id - cube ID to look for
+     * @return Desired Rubik's Cube if found, null otherwise.
+     */
+    private RubiksCube getCube(int id) {
+        // TODO
+    }
+
+    /**
      * Handles user control of the Visualizer.
      */
     private void run() {
-        System.err.println("Welcome to the RubikTreeLang Visualizer.\n");
+        System.out.println("Welcome to the RubikTreeLang Visualizer.\n");
         displayValidCommands();
 
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.err.print("> ");
+            System.out.print("> ");
             String command = in.next();
             switch (command) {
                 case "step":
@@ -136,12 +146,12 @@ public class Visualizer {
                     try {
                         numSteps = in.nextInt();
                     } catch (Exception e) {
-                        System.err.println("Argument must be an integer.");
+                        System.out.println("Argument must be an integer.");
                         in.nextLine(); // consume extraneous arguments and \n
                         break;
                     }
                     if (numSteps < 0)
-                        System.err.println("Argument must be non-negative.");
+                        System.out.println("Argument must be non-negative.");
                     else
                         stepAtMost(numSteps);
                     in.nextLine();
@@ -151,15 +161,15 @@ public class Visualizer {
                     try {
                         end = in.nextInt();
                     } catch (Exception e) {
-                        System.err.println("Argument must be an integer.");
+                        System.out.println("Argument must be an integer.");
                         in.nextLine();
                         break;
                     }
                     if (end > interp.getInstructions().length)
-                        System.err.println(
+                        System.out.println(
                                 "Specified end lies beyond end of program.");
                     else if (end < 0)
-                        System.err.println("Argument must be non-negative.");
+                        System.out.println("Argument must be non-negative.");
                     else
                         stepUntil(end);
                     in.nextLine();
@@ -173,17 +183,22 @@ public class Visualizer {
                     try {
                         id = in.nextInt();
                     } catch (Exception e) {
-                        System.err.println("Argument must be an integer.");
+                        System.out.println("Argument must be an integer.");
                         in.nextLine();
                         break;
                     }
                     if (id >= interp.getTrie().getNumCubes())
-                        System.err.println(
+                        System.out.println(
                                 "ID too large.");
                     else if (id < 0)
-                        System.err.println("Argument must be non-negative.");
+                        System.out.println("Argument must be non-negative.");
                     else {
-                        // TODO
+                        RubiksCube cube = getCube(id);
+                        if (cube == null)
+                            System.out.println("Rubik's Cube with ID " + id
+                                    + " does not exist.");
+                        else
+                            System.out.println(cube);
                     }
                     in.nextLine();
                     break;
@@ -198,7 +213,7 @@ public class Visualizer {
                 case "exit":
                     return;
                 default:
-                    System.err.println("Invalid command.\n");
+                    System.out.println("Invalid command.\n");
                     displayValidCommands();
                     in.nextLine();
             }
