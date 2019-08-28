@@ -57,12 +57,6 @@ public class RubiksCube {
         return parent;
     }
 
-    /**
-     * Not a language feature: this is for the visualizer to search for a cube
-     * with a specified ID.
-     *
-     * @return
-     */
     Node[] getNodes() {
         return cube;
     }

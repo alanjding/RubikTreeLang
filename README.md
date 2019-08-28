@@ -75,7 +75,7 @@ The input unary operator sets the payload of the cell at the read-write head to 
 - `d` (`inputd`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9]` as a decimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the integer literal is greater than 255. Arguments larger than `INT_MAX` will cause the interpreter to throw an exception.
 - `x` (`inputx`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9A-Fa-f]` as a hexadecimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 2 characters.
 
-`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated until it reads the EOF char) stores `0` at the payload of the cell under the read-write head. `inputc` will also store a `0` upon reading EOF (but not `\n`).
+`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated until it reads the EOF char) stores `0` at the payload of the cell under the read-write head. `inputc` will also store a `0` upon reading EOF (but not `\n`). Additionally, all `input_` commands other than `inputc` consume the entire line given to it.
 
 ### Output `output_`
 
@@ -105,6 +105,14 @@ N.B.: nothing will stop you from intermixing `{` and `[` (e.g. `{[}]`), but the 
 Traverse down, as its name suggests, tells the interpreter to either follow the link in the cell under the read-write head to a child Rubik's Cube if it exists, or creates a new blank Rubik's Cube. Traverse up tells the interpreter to go back up to the parent node that links to the current Rubik's Cube. If traverse up is called at the root node, it does nothing. Usage for both commands is simply `^` or `v` alone.
 
 **N.B.: these single-char commands still need to be whitespace delimited! Even the brackets!**
+
+### Copy current payload to child `ptc`
+
+Copies the byte under the read-write head in the current cube to the byte under the read-write head in the child cube if it exists, or creates a new child Rubik's Cube with the copied byte under the child cube's read-write head. The command does not take the program to the child cube.
+
+### Copy current payload to parent `ctp`
+
+Copies the byte under the read-write head in the current cube to the byte under the read-write head in the parent cube only if the current cube is not the root cube. If the current cube is the root cube, the command does nothing. The command does not take the program to the parent cube.
 
 ### Comments `#`
 

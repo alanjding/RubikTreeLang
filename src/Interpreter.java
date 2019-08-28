@@ -44,7 +44,7 @@ public class Interpreter {
         }
 
         return fileContent.replaceAll("#.*", "")
-                .replaceFirst("(\\s|\\n)+", "")
+                .replaceFirst("^(\\s|\\n)+", "")
                 .split(WHITESPACE_PATTERN);
     }
 
@@ -57,7 +57,7 @@ public class Interpreter {
      */
     private static byte binaryStringToByte(String s) {
         byte result = 0;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (s.charAt(s.length() - i - 1) == '1')
                 result |= 1 << i;
         }
@@ -127,12 +127,16 @@ public class Interpreter {
 
         commandMap.put("inputb", () -> {
             String match = sc.findInLine("[01]+");
+
             if (match != null) {
                 byte payload = binaryStringToByte(
                         match.substring(Math.max(match.length() - 8, 0)));
                 currCube.getRWNode().setPayload(payload);
             } else
                 currCube.getRWNode().setPayload((byte) 0);
+
+            // consume unused new line
+            sc.nextLine();
         });
 
         commandMap.put("inputc", () -> {
@@ -148,6 +152,7 @@ public class Interpreter {
 
         commandMap.put("inputd", () -> {
             String match = sc.findInLine("[0-9]+");
+
             if (match != null) {
                 // can cause overflow and throw an exception
                 byte payload = (byte) Integer.parseInt(match);
@@ -155,10 +160,14 @@ public class Interpreter {
                 currCube.getRWNode().setPayload(payload);
             } else
                 currCube.getRWNode().setPayload((byte) 0);
+
+            // consume unused new line
+            sc.nextLine();
         });
 
         commandMap.put("inputx", () -> {
             String match = sc.findInLine("[0-9A-Fa-f]+");
+
             if (match != null) {
                 byte payload = Integer.decode("0x" +
                         match.substring(Math.max(match.length() - 2, 0)))
@@ -166,6 +175,9 @@ public class Interpreter {
                 currCube.getRWNode().setPayload(payload);
             } else
                 currCube.getRWNode().setPayload((byte) 0);
+
+            // consume unused new line
+            sc.nextLine();
         });
 
         commandMap.put("outputb", () -> {
@@ -239,6 +251,20 @@ public class Interpreter {
                 currCube = currCube.getParent();
         });
 
+        commandMap.put("ptc", () -> {
+            Node node = currCube.getRWNode();
+            if (node.getChild() == null) {
+                node.initializeChildRubiksCube();
+            }
+            node.getChild().getRWNode().setPayload(node.getPayload());
+        });
+
+        commandMap.put("ctp", () -> {
+            if (currCube.getParent() != null)
+                currCube.getParent().getRWNode().setPayload(
+                        currCube.getRWNode().getPayload());
+        });
+
         commandMap.put("U", () -> currCube.turn('U', 1));
         commandMap.put("U2", () -> currCube.turn('U', 2));
         commandMap.put("U'", () -> currCube.turn('U', -1));
@@ -303,7 +329,8 @@ public class Interpreter {
             currCube.turn('B', 2);
         });
 
-        // There might be empty strings in the instruction array
+        // There should not be empty strings in the instruction array but if
+        // there are, then do nothing
         commandMap.put("", () -> {
         });
 

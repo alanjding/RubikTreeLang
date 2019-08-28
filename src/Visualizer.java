@@ -73,7 +73,7 @@ public class Visualizer {
                 + interp.getInstructions()[interp.getProgramCounter()]
                 + " at pc = " + interp.getProgramCounter());
         interp.processNextCommand();
-        System.out.format("Global byte hex value: %x\n\n",
+        System.out.format("Global byte hex value: %x\n",
                 interp.getTrie().getGlobalByte());
         System.out.println(interp.getCurrCube());
         System.out.println();
@@ -109,6 +109,7 @@ public class Visualizer {
                         + i + " steps before reaching the end of the program.");
                 return;
             }
+
             try {
                 step();
             } catch (Exception e) {
@@ -153,12 +154,14 @@ public class Visualizer {
         displayValidCommands();
 
         Scanner in = new Scanner(System.in);
+
         while (true) {
             System.out.print("> ");
             String command = in.next();
             switch (command) {
                 case "step":
                     int numSteps;
+
                     try {
                         numSteps = in.nextInt();
                     } catch (Exception e) {
@@ -166,14 +169,17 @@ public class Visualizer {
                         in.nextLine(); // consume extraneous arguments and \n
                         break;
                     }
+
                     if (numSteps < 0)
                         System.out.println("Argument must be non-negative.");
                     else
                         stepAtMost(numSteps);
+
                     in.nextLine();
                     break;
                 case "stepuntil":
                     int end;
+
                     try {
                         end = in.nextInt();
                     } catch (Exception e) {
@@ -181,6 +187,7 @@ public class Visualizer {
                         in.nextLine();
                         break;
                     }
+
                     if (end > interp.getInstructions().length)
                         System.out.println(
                                 "Specified end lies beyond end of program.");
@@ -188,6 +195,7 @@ public class Visualizer {
                         System.out.println("Argument must be non-negative.");
                     else
                         stepUntil(end);
+
                     in.nextLine();
                     break;
                 case "run":
@@ -196,6 +204,7 @@ public class Visualizer {
                     break;
                 case "displaycube":
                     int id;
+
                     try {
                         id = in.nextInt();
                     } catch (Exception e) {
@@ -203,6 +212,7 @@ public class Visualizer {
                         in.nextLine();
                         break;
                     }
+
                     if (id >= interp.getTrie().getNumCubes())
                         System.out.println("Rubik's Cube with ID " + id
                                 + " does not exist.");
@@ -216,6 +226,7 @@ public class Visualizer {
                         else
                             System.out.println(cube);
                     }
+
                     in.nextLine();
                     break;
                 case "restart":

@@ -1,0 +1,30 @@
+F setx 010a F' # new line char, also tests overflow behavior and leading 0
+
+inputb
+outputb
+outputc F outputc F'
+outputd
+outputx
+outputX
+
+inputc
+outputb
+outputc F outputc F'
+outputd
+outputx
+outputX
+inputc # consume new line
+
+inputd
+outputb
+outputc F outputc F'
+outputd
+outputx
+outputX
+
+inputx
+outputb
+outputc F outputc F'
+outputd
+outputx
+outputX
