@@ -14,6 +14,10 @@ public class RubiksTrie {
         return root;
     }
 
+    int getNumCubes() {
+        return numCubes;
+    }
+
     void incrementGlobalByte() {
         global++;
     }

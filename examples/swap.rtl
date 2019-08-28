@@ -1,5 +1,5 @@
 # Reads the first 2 chars from stdin and swaps them in memory if the first's
-# byte representation is greater than the second's. Buggy! What's wrong?
+# byte representation is greater than the second's.
 
 inputc F inputc
 
@@ -30,12 +30,18 @@ ptg
     # store left cell in child cube
     F ptg v gtp ^
 
-    # copy right cell value into global and divide
-    F' ptg /
+    # store right cell in child cube
+    F' ptg v gtp ^
+
+    # right cell value is already in global - divide
+    /
 
     # if result is 0/if left cell smaller, then swap
     # right cell value is still in global
     [
         F gtp v ptg ^ F' gtp
     ]
+
+    # prevent outer loop from running
+    gsetd 0
 }

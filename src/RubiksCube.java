@@ -110,8 +110,12 @@ public class RubiksCube {
     }
 
     public String toString() {
+        String parentID = getParent() == null ?
+                "current cube is the root and has no parent" :
+                String.valueOf(getParent().getID());
+
         return "Rubik's Cube ID: " + getID() +
-                "Parent Rubik's Cube ID: " + getParent().getID() +
+                "\nParent Rubik's Cube ID: " + parentID +
                 String.format("\n\n%15s%-7s%-8s\n", "", cube[17], cube[18])
                 + String.format("%15s%-7s%-8s\n\n", "", cube[19], cube[20])
                 + String.format("%-7s%-8s%-7s%-8s%-7s%-8s%-7s%-8s\n",

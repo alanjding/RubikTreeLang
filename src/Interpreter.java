@@ -3,7 +3,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Interpreter {
 
@@ -41,6 +44,7 @@ public class Interpreter {
         }
 
         return fileContent.replaceAll("#.*", "")
+                .replaceFirst("(\\s|\\n)+", "")
                 .split(WHITESPACE_PATTERN);
     }
 
@@ -326,7 +330,7 @@ public class Interpreter {
      * runs the whole RubikTreeLang program from start to finish. Otherwise,
      * this method runs the program from where the interpreter last stopped.
      */
-    void processRemainingCommands() {
+    private void processRemainingCommands() {
         while (pc < instructions.length)
             try {
                 processNextCommand();
@@ -352,5 +356,15 @@ public class Interpreter {
 
     int getProgramCounter() {
         return pc;
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java Interpreter rtlFilePath");
+            return;
+        }
+
+        Interpreter interp = new Interpreter(Paths.get(args[0]));
+        interp.processRemainingCommands();
     }
 }
