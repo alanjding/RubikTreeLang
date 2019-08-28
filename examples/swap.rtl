@@ -33,13 +33,16 @@ ptg
     # store right cell in child cube
     F' ptg v gtp ^
 
-    # right cell value is already in global - divide
-    /
+    # right cell value is already in global - divide left cell by right
+    F /
 
     # if result is 0/if left cell smaller, then swap
-    # right cell value is still in global
+    ptg F'
     [
-        F gtp v ptg ^ F' gtp
+        F v ptg ^ F' gtp v ptg ^ F gtp F'
+
+        # just in case
+        gsetd 1
     ]
 
     # prevent outer loop from running

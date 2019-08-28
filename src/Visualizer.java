@@ -1,5 +1,7 @@
 import java.io.EOFException;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Visualizer {
@@ -24,7 +26,7 @@ public class Visualizer {
         System.out.println("\t\tAdvances program until its program counter " +
                 "reaches the value pc and displays the program state at the " +
                 "end of each step.");
-        System.out.println("\tstepuntilend:");
+        System.out.println("\trun:");
         System.out.println("\t\tFinishes execution of the program and " +
                 "displays the program state at the end of each step.");
         System.out.println("\tdisplaycube id (id is a non-negative integer):");
@@ -71,9 +73,10 @@ public class Visualizer {
                 + interp.getInstructions()[interp.getProgramCounter()]
                 + " at pc = " + interp.getProgramCounter());
         interp.processNextCommand();
-        System.out.println(interp.getCurrCube());
         System.out.format("Global byte hex value: %x\n\n",
                 interp.getTrie().getGlobalByte());
+        System.out.println(interp.getCurrCube());
+        System.out.println();
     }
 
     /**
@@ -88,8 +91,7 @@ public class Visualizer {
                 step();
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(
-                        "stepuntil or stepuntilend returned prematurely.");
+                System.out.println("stepuntil or run returned prematurely.");
                 return;
             }
     }
@@ -126,7 +128,21 @@ public class Visualizer {
      * @return Desired Rubik's Cube if found, null otherwise.
      */
     private RubiksCube getCube(int id) {
-        // TODO
+        // level order traversal
+        Queue<RubiksCube> q = new LinkedList<>();
+        q.add(interp.getTrie().getRoot());
+
+        while (!q.isEmpty()) {
+            RubiksCube curr = q.remove();
+            if (curr.getID() == id)
+                return curr;
+
+            for (Node n : curr.getNodes())
+                if (n.getChild() != null)
+                    q.add(n.getChild());
+        }
+
+        return null;
     }
 
     /**
@@ -174,7 +190,7 @@ public class Visualizer {
                         stepUntil(end);
                     in.nextLine();
                     break;
-                case "stepuntilend":
+                case "run":
                     stepUntil(interp.getInstructions().length);
                     in.nextLine();
                     break;
@@ -188,8 +204,8 @@ public class Visualizer {
                         break;
                     }
                     if (id >= interp.getTrie().getNumCubes())
-                        System.out.println(
-                                "ID too large.");
+                        System.out.println("Rubik's Cube with ID " + id
+                                + " does not exist.");
                     else if (id < 0)
                         System.out.println("Argument must be non-negative.");
                     else {

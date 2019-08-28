@@ -135,6 +135,6 @@ public class RubiksCube {
                 cube[5], cube[6], cube[7], cube[8],
                 cube[9], cube[10], cube[11], cube[12])
                 + String.format("%15s%-7s%-8s\n", "", cube[13], cube[14])
-                + String.format("%15s%-7s%-8s", "", cube[15], cube[16]);
+                + String.format("%15s%-7s%-8s\n", "", cube[15], cube[16]);
     }
 }
