@@ -7,6 +7,44 @@ Unfortunately, on a single 2x2x2 Rubik's Cube, we only have 24 slots of memory t
 
 However, our tape is not yet "contiguous": there is no way for memory on one cube to move to another cube. As a result, the language supports an unsigned one-byte chunk of global storage accessible from any cube. Recall that the language only has one read-write head, so the global storage doubles as a way to support the arithmetic and enter-if-nonzero commands.
 
+## Included Executables
+
+### Interpreter
+
+The Interpreter takes one command-line argument corresponding to the path of the `.rtl` file to be interpreted. This is the standard way to run `.rtl` programs.
+
+### Visualizer
+
+The Visualizer also takes one command-line argument corresponding to the path of the `.rtl` file to be interpreted. As its name suggests, the Visualizer lets the user see what's written to and read from the Rubik's Cubes' memory as a program runs. It is useful for writing and debugging code.
+Things you can tell the Visualizer to do:
+```
+step n (n is a non-negative integer):
+        Advances program by at most n steps and displays the program state at the end of each step.
+stepuntil pc (pc is a non-negative integer):
+        Advances program until its program counter reaches the value pc 
+        and displays the program state at the end of each step.
+run:
+        Finishes execution of the program and displays the program state at the end of each step.
+displaycube id (id is a non-negative integer):
+        Displays the cube with ID id.
+restart:
+        Resets the program's state/memory.
+code:
+        Prints the code's instruction sequence as an indexed list.
+exit:
+        Exits the Visualizer.
+```
+
+### Converter
+
+If you get sick of manually having to keep track of memory on a tree/trie of Rubik's Cubes (and I promise I won't be offended if you do), you can pretend like all the RubiksTreeLang commands (which are documented below) remained as they always were except now you're working with a linear memory tape that starts you at position 0 and extends indefinitely to the right (increasing memory location) and that the moves have disappeared and been replaced with `<` and `>`, which shift a pointer left and right, respectively, along the linear memory tape. Such "Lang" files conventionally have a `.l` file extension (lowercase L for "Lang", as this new language loses its `r` Rubik's Cube quality, as well as its `t` tree quality). The Converter will then turn the code in the `.l` file into `.rtl` code by using a very uncreative pre-defined mapping from a linear memory model to a RubikTree memory model.
+
+**N.B.: the converter will not check if `<` goes beyond the tape's start!**
+
+The Converter takes two command-line arguments. The first is the source `.l` file; the target is the `.rtl` file that the Converter writes to. The Converter will not accept `.l` files with Rubik's Cube moves (e.g. `U`, `L`, `F`, ...) in them but does not check for other invalid commands.
+
+## Commands
+
 RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, and traverse up `^`. Comments are also supported with the command `#`.
 
 Commands and their arguments are to be delimited by whitespace of some sort.
