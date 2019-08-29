@@ -37,19 +37,13 @@ exit:
 
 ### Converter
 
-If you get sick of manually having to keep track of memory on a tree/trie of Rubik's Cubes (and I promise I won't be offended if you do), you can pretend like all the RubiksTreeLang commands (which are documented below) remained as they always were except now you're working with a linear memory tape that starts you at position 0 and extends indefinitely to the right (increasing memory location) and that the moves have disappeared and been replaced with `<` and `>`, which shift a pointer left and right, respectively, along the linear memory tape. Such "Lang" files conventionally have a `.l` file extension (lowercase L for "Lang", as this new language loses its `r` Rubik's Cube quality, as well as its `t` tree quality). The Converter will then turn the code in the `.l` file into `.rtl` code by using a very uncreative pre-defined mapping from a linear memory model to a RubikTree memory model.
+If you get sick of manually having to keep track of memory on a tree/trie of Rubik's Cubes and find that even brainf*** (hereafter "BF") is easier to write (and I promise I won't be offended if you do), this tool takes in a BF program and outputs the RubikTreeLang program.
 
-**N.B.: the converter will not check if `<` goes beyond the tape's start!**
-
-The Converter takes two command-line arguments. The first is the source `.l` file; the target is the `.rtl` file that the Converter writes to. The Converter will not accept `.l` files with Rubik's Cube moves (e.g. `U`, `L`, `F`, ...) in them but does not check for other invalid commands.
-
-### BFConverter (brainf*** to `.rtl`)
-
-Under construction
+The Converter takes two command-line arguments. The first is the source BF file; the target is the `.rtl` file that the Converter writes to.
 
 ## Commands
 
-RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, and traverse up `^`. Comments are also supported with the command `#`.
+RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, traverse up `^`, parent to child `ptc`, and child to parent `ctp`. Comments are also supported with the command `#`.
 
 Commands and their arguments are to be delimited by whitespace of some sort.
 
