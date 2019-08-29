@@ -43,6 +43,10 @@ If you get sick of manually having to keep track of memory on a tree/trie of Rub
 
 The Converter takes two command-line arguments. The first is the source `.l` file; the target is the `.rtl` file that the Converter writes to. The Converter will not accept `.l` files with Rubik's Cube moves (e.g. `U`, `L`, `F`, ...) in them but does not check for other invalid commands.
 
+### BFConverter (brainf*** to `.rtl`)
+
+Under construction
+
 ## Commands
 
 RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, increment global `g++`, decrement global `g--`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, and traverse up `^`. Comments are also supported with the command `#`.
