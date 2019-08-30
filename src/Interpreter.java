@@ -121,10 +121,6 @@ public class Interpreter {
         commandMap.put("ptg", () -> trie.setGlobalByte(currCube.getRWNode()
                 .getPayload()));
 
-        commandMap.put("g++", () -> trie.incrementGlobalByte());
-
-        commandMap.put("g--", () -> trie.decrementGlobalByte());
-
         commandMap.put("inputb", () -> {
             String match = sc.findInLine("[01]+");
 
@@ -201,23 +197,23 @@ public class Interpreter {
         commandMap.put("outputX", () ->
                 System.out.format("%X%n", currCube.getRWNode().getPayload()));
 
-        commandMap.put("+", () -> currCube.getRWNode().setPayload((byte)
+        commandMap.put("+", () -> trie.setGlobalByte((byte)
                 (currCube.getRWNode().getPayload() + trie.getGlobalByte())));
 
-        commandMap.put("-", () -> currCube.getRWNode().setPayload((byte)
+        commandMap.put("-", () -> trie.setGlobalByte((byte)
                 (currCube.getRWNode().getPayload() - trie.getGlobalByte())));
 
-        commandMap.put("*", () -> currCube.getRWNode().setPayload((byte)
+        commandMap.put("*", () -> trie.setGlobalByte((byte)
                 (currCube.getRWNode().getPayload() * trie.getGlobalByte())));
 
-        commandMap.put("/", () -> currCube.getRWNode().setPayload((byte)
+        commandMap.put("/", () -> trie.setGlobalByte((byte)
                 (currCube.getRWNode().getPayload() / trie.getGlobalByte())));
 
-        commandMap.put("%", () -> currCube.getRWNode().setPayload((byte)
+        commandMap.put("%", () -> trie.setGlobalByte((byte)
                 (currCube.getRWNode().getPayload() % trie.getGlobalByte())));
 
         commandMap.put("{", () -> {
-            if (trie.getGlobalByte() == 0)
+            if (currCube.getRWNode().getPayload() == 0)
                 while (!instructions[pc].equals("}")) pc++;
             else
                 openBracketLocations.push(pc);
@@ -230,7 +226,7 @@ public class Interpreter {
         commandMap.put("}", () -> pc = openBracketLocations.pop() - 1);
 
         commandMap.put("[", () -> {
-            if (trie.getGlobalByte() != 0)
+            if (currCube.getRWNode().getPayload() != 0)
                 while (!instructions[pc].equals("]")) pc++;
             else
                 openBracketLocations.push(pc);

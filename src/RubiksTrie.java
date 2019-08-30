@@ -18,14 +18,6 @@ public class RubiksTrie {
         return numCubes;
     }
 
-    void incrementGlobalByte() {
-        global++;
-    }
-
-    void decrementGlobalByte() {
-        global--;
-    }
-
     void setGlobalByte(byte b) {
         global = b;
     }
