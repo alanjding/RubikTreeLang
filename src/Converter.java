@@ -87,12 +87,13 @@ public class Converter {
     }
 
     public static void main(String[] args) {
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println(
                     "Usage: java Converter bfInputPath rtlOutputPath");
             return;
         }
 
-
+        Converter converter = new Converter(args[0]);
+        converter.convert(args[1]);
     }
 }
