@@ -26,6 +26,14 @@ public class RubiksTrie {
         return global;
     }
 
+    void incrementGlobalByte() {
+        global++;
+    }
+
+    void decrementGlobalByte() {
+        global--;
+    }
+
     int assignCubeID() {
         int id = numCubes;
         numCubes++;

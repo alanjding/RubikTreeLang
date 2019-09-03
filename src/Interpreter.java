@@ -213,7 +213,7 @@ public class Interpreter {
                 (currCube.getRWNode().getPayload() % trie.getGlobalByte())));
 
         commandMap.put("{", () -> {
-            if (currCube.getRWNode().getPayload() == 0)
+            if (trie.getGlobalByte() == 0)
                 while (!instructions[pc].equals("}")) pc++;
             else
                 openBracketLocations.push(pc);
@@ -226,7 +226,7 @@ public class Interpreter {
         commandMap.put("}", () -> pc = openBracketLocations.pop() - 1);
 
         commandMap.put("[", () -> {
-            if (currCube.getRWNode().getPayload() != 0)
+            if (trie.getGlobalByte() != 0)
                 while (!instructions[pc].equals("]")) pc++;
             else
                 openBracketLocations.push(pc);
@@ -260,6 +260,10 @@ public class Interpreter {
                 currCube.getParent().getRWNode().setPayload(
                         currCube.getRWNode().getPayload());
         });
+
+        commandMap.put("g++", () -> trie.incrementGlobalByte());
+
+        commandMap.put("g--", () -> trie.decrementGlobalByte());
 
         commandMap.put("U", () -> currCube.turn('U', 1));
         commandMap.put("U2", () -> currCube.turn('U', 2));

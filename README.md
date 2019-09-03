@@ -43,7 +43,7 @@ The Converter takes two command-line arguments. The first is the source BF file;
 
 ## Commands
 
-RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, traverse up `^`, parent to child `ptc`, and child to parent `ctp`. Comments are also supported with the command `#`.
+RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, traverse up `^`, parent to child `ptc`, child to parent `ctp`, increment global `g++`, and decrement global `g--`. Comments are also supported with the command `#`.
 
 Commands and their arguments are to be delimited by whitespace of some sort.
 
@@ -124,11 +124,11 @@ These are no-arg operators that take input from the cell under the read-write he
 
 ### Enter-if-nonzero brackets `{`, `}`
 
-At an open enter-if-nonzero bracket, the interpreter checks whether the byte in the payload of the node under the read-write head is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close enter-if-nonzero bracket. Once the program counter reaches the close enter-if-nonzero bracket, it goes back to the corresponding open enter-if-unequal bracket, and the condition is checked again.
+At an open enter-if-nonzero bracket, the interpreter checks whether the global byte is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close enter-if-nonzero bracket. Once the program counter reaches the close enter-if-nonzero bracket, it goes back to the corresponding open enter-if-unequal bracket, and the condition is checked again.
 
 ### Enter-if-zero brackets `[`, `]`
 
-Works in the same way as the enter-if-nonzero brackets but enters if (and only if) the byte under the read-write head is `0`.
+Works in the same way as the enter-if-nonzero brackets but enters if (and only if) the global byte is `0`.
 
 N.B.: nothing will stop you from intermixing `{` and `[` (e.g. `{[}]`), but the interpreter's behavior is undefined in this case!
 
@@ -145,6 +145,10 @@ Copies the byte under the read-write head in the current cube to the byte under 
 ### Copy current payload to parent `ctp`
 
 Copies the byte under the read-write head in the current cube to the byte under the read-write head in the parent cube only if the current cube is not the root cube. If the current cube is the root cube, the command does nothing. The command does not take the program to the parent cube.
+
+### Global increment and decrement `g++`, `g--`
+
+`g++` increases the global byte by 1, and `g--` decreases it by 1.
 
 ### Comments `#`
 

@@ -38,7 +38,7 @@ public class Converter {
     private static Map<Character, String> createCommandMap() {
         Map<Character, String> commandMap = new HashMap<>();
 
-        commandMap.put();
+        commandMap.put('>', "");
 
         return commandMap;
     }

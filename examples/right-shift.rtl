@@ -1,0 +1,29 @@
+# test file for right shifting
+# takes in an initial value for the global byte read from stdin
+
+inputd ptg
+[ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F x v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F y v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F x v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F y v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F x v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F v setd 25 + ^ ]
+g-- [ F y v g++ ]
+g--
