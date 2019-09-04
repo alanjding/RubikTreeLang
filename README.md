@@ -3,9 +3,9 @@ A minimalistic esoteric programming language with a Rubik's Cube tree (well it's
 
 RubikTreeLang is modeled somewhat after the Turing machine with one read-write head and a shiftable infinite memory tape. In this language, the read-write head and its functionality remain very similar to the Turing machine. However, instead of to a one-dimensional sequential memory, data is written to stickers on a virtual 2x2x2 Rubik's Cube. Each sticker cell contains an (unsigned) one-byte payload. Shifting the tape left and right is instead replaced with legal twists of the Rubik's Cube.
 
-Unfortunately, on a single 2x2x2 Rubik's Cube, we only have 24 slots of memory to work with. To remedy this, each sticker cell comes equipped with a potential reference to another 2x2x2 Rubik's Cube, complete with 24 more sticker cells with a payload and, \*gasp\*, potential references to yet more 2x2x2 Rubik's Cubes! We are left with a memory model with the same structure as a 24-way trie, but of course, going down the trie takes a bit of work. The presence of the trie makes it possible for the programmer to completely ignore cube twists and treat the memory tape as, simply, a 24-way trie. However, I would advise strongly against doing this, mainly because it makes the language uninteresting, but also horribly, disturbingly, wretchedly, and deathly space inefficient (a ___ byte overhead (assuming a JVM using a 16 byte class overhead, a 24 byte array overhead, and padding objects to the next highest multiple of 8 bytes) per byte of payload), as opposed to merely horribly space inefficient (an amortized __ byte overhead per byte of payload in the, uh, best case).
+Unfortunately, on a single 2x2x2 Rubik's Cube, we only have 24 slots of memory to work with. To remedy this, each sticker cell comes equipped with a potential reference to another 2x2x2 Rubik's Cube, complete with 24 more sticker cells with a payload and, \*gasp\*, potential references to yet more 2x2x2 Rubik's Cubes! We are left with a memory model with the same structure as a 24-way trie, but of course, going down the trie takes a bit of work. The presence of the trie makes it possible for the programmer to completely ignore cube twists and treat the memory tape as, simply, a 24-way trie. However, I would advise strongly against doing this, mainly because it makes the language uninteresting, but also horribly, disturbingly, wretchedly, and deathly space inefficient (a 1,208 byte overhead (assuming a JVM using a 16 byte class overhead, a 24 byte array overhead, and padding objects to the next highest multiple of 8 bytes) per byte of payload), as opposed to merely horribly space inefficient (an amortized ~50 byte overhead per byte of payload in the, uh, best case).
 
-However, our tape is not yet "contiguous": there is no way for memory on one cube to move to another cube. As a result, the language supports an unsigned one-byte chunk of global storage accessible from any cube. Recall that the language only has one read-write head, so the global storage doubles as a way to support the arithmetic and enter-if-nonzero commands.
+However, our tape is not yet "contiguous": there is no way for memory on one cube to move to another cube. As a result, the language supports an unsigned one-byte chunk of global storage accessible from any cube. Recall that the language only has one read-write head, so the global storage doubles as a way to support the arithmetic and enter-if-nonzero commands. It also exists for the programmer's convenience.
 
 ## Included Executables
 
@@ -40,6 +40,28 @@ exit:
 If you get sick of manually having to keep track of memory on a tree/trie of Rubik's Cubes and find that even brainf*** (hereafter "BF") is easier to write (and I promise I won't be offended if you do), this tool takes in a BF program and outputs the RubikTreeLang program.
 
 The Converter takes two command-line arguments. The first is the source BF file; the target is the `.rtl` file that the Converter writes to.
+
+Be warned that the code produced by the Converter ranks among the ugliest things known to man, so think twice before you let it do its thing. Also note that BF programs that use cells to the left of the starting cell will not run properly.
+
+## Running the Executables
+
+From the project root directory, type `cd bin` in the command line to enter the directory containing all of the executables - the Interpreter, Visualizer, and Converter.
+
+The Interpreter takes one command-line argument corresponding to the `.rtl` file to be run. Its usage:
+
+```java Interpreter rtlFilePath```
+
+Note that `rtlFilePath` is relative to the `bin` directory, so if you were to run a `.rtl` file in the `examples` directory, you would use the path `../examples/file.rtl`.
+
+The Visualizer also takes one command-line argument corresponding to the `.rtl` file to be visualized. Its usage:
+
+```java Visualizer rtlFilePath```
+
+Finally, the Converter takes two command-line arguments corresponding to the `.bf` file to be converted and the `.rtl` target path. Its usage:
+
+```java Converter bfInputPath rtlOutputPath```
+
+The file corresponding to `rtlOutputPath` must not yet exist at the start of the Converter's execution.
 
 ## Commands
 
@@ -107,7 +129,7 @@ The input unary operator sets the payload of the cell at the read-write head to 
 - `d` (`inputd`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9]` as a decimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the integer literal is greater than 255. Arguments larger than `INT_MAX` will cause the interpreter to throw an exception.
 - `x` (`inputx`): read the earliest-occurring longest consecutive sequence of characters matching `[0-9A-Fa-f]` as a hexadecimal integer literal. When stored to a cell's one-byte payload, overflow will occur if the sequence is longer than 2 characters.
 
-`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated until it reads the EOF char) stores `0` at the payload of the cell under the read-write head. `inputc` will also store a `0` upon reading EOF (but not `\n`). Additionally, all `input_` commands other than `inputc` consume the entire line given to it.
+`input_` behaves like the methods of a Scanner object (because that's how they're implemented): in the command line, the user must press return/enter after entering input for the interpreter to read it. Additionally, if no match is found in the line fed to stdin, `input_` (with the exception of `inputc` which waits for stdin to become populated or repopulated until it reads the EOF char) stores `0` at the payload of the cell under the read-write head. `inputc` will also store a `0` upon reading EOF OR `\n`. (As a result, the included cat program will actually only read in the first line of any given input.) Additionally, all `input_` commands other than `inputc` consume the entire line given to it.
 
 ### Output `output_`
 
@@ -120,7 +142,7 @@ The output unary operator prints the payload of the cell at the read-write head 
 
 ### Arithmetic operators `+`, `-`, `*`, `/`, `%`
 
-These are no-arg operators that take input from the cell under the read-write head and the global byte and writing the result of applying the operator to the global byte. The symbols are consistent with most civilized languages, i.e. `+` is addition, `-` is subtraction, `*` is multiplication, `/` is integer division, and `%` is modulo (remainder). Of course, since the sources and destinations of the operator are fixed, in code, one simply types the operator and the operator alone to use them (i.e. `*` as opposed to something like `3*4`).
+These are no-arg operators that take input from the global byte on the left side of the operator and the payload byte of the cell under the read-write head on the right side of the operator and writing the result of applying the operator to the global byte. The symbols are consistent with most civilized languages, i.e. `+` is addition, `-` is subtraction, `*` is multiplication, `/` is integer division, and `%` is modulo (remainder). Of course, since the sources and destinations of the operator are fixed, in code, one simply types the operator and the operator alone to use them (i.e. `*` as opposed to something like `3*4`).
 
 ### Global-enter-if-nonzero brackets `{`, `}`
 

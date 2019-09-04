@@ -38,7 +38,7 @@ public class Converter {
     private static Map<Character, String> createCommandMap() {
         Map<Character, String> commandMap = new HashMap<>();
 
-        commandMap.put('>', "inputd ptg [ F v setd 25 + ^ ] g-- [ F v setd 25" +
+        commandMap.put('>', "[ F v setd 25 + ^ ] g-- [ F v setd 25" +
                 " + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F x v setd 25 + ^ ] g--" +
                 " [ F v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F v setd" +
                 " 25 + ^ ] g-- [ F y v setd 25 + ^ ] g-- [ F v setd 25 + ^ ]" +
@@ -65,41 +65,57 @@ public class Converter {
         commandMap.put('[', "<");
         commandMap.put(']', ">");
 
-        commandMap.put('+', "[ ptg F v setd 1 + ^ F' gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
-                " gsetd 24 ] g--");
+        commandMap.put('+', "[ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g-- [ ptg g++ gtp gsetd 24 ] " +
+                "g--");
 
-        commandMap.put('-', "[ ptg F v setd 1 - ^ F' gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
-                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
-                " gsetd 24 ] g--");
+        commandMap.put('-', "[ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g-- [ ptg g-- gtp gsetd 24 ] " +
+                "g--");
 
         commandMap.put(',', "inputc");
         commandMap.put('.', "outputc");
@@ -128,7 +144,14 @@ public class Converter {
      * @param outputPath - where to save the .rtl file
      */
     private void convert(String outputPath) {
-        Path file = Paths.get(outputPath);
+        Path outfile;
+        try {
+            outfile = Files.createFile(Paths.get(outputPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
         StringBuilder line = new StringBuilder();
         Map<Character, String> commandMap = createCommandMap();
 
@@ -143,7 +166,7 @@ public class Converter {
 
         List<String> lines = Collections.singletonList(line.toString());
         try {
-            Files.write(file, lines, StandardCharsets.US_ASCII);
+            Files.write(outfile, lines, StandardCharsets.US_ASCII);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(".rtl file write failed.");

@@ -138,9 +138,14 @@ public class Interpreter {
         commandMap.put("inputc", () -> {
             sc.useDelimiter("");
 
-            if (sc.hasNext())
-                currCube.getRWNode().setPayload((byte) sc.next().charAt(0));
-            else
+            if (sc.hasNext()) {
+                char input = sc.next().charAt(0);
+
+                if (input == '\n')
+                    currCube.getRWNode().setPayload((byte) 0);
+                else
+                    currCube.getRWNode().setPayload((byte) input);
+            } else
                 currCube.getRWNode().setPayload((byte) 0);
 
             sc.useDelimiter(WHITESPACE_PATTERN);
@@ -198,26 +203,34 @@ public class Interpreter {
                 System.out.format("%X%n", currCube.getRWNode().getPayload()));
 
         commandMap.put("+", () -> trie.setGlobalByte((byte)
-                (currCube.getRWNode().getPayload() + trie.getGlobalByte())));
+                (trie.getGlobalByte() + currCube.getRWNode().getPayload())));
 
         commandMap.put("-", () -> trie.setGlobalByte((byte)
-                (currCube.getRWNode().getPayload() - trie.getGlobalByte())));
+                (trie.getGlobalByte() - currCube.getRWNode().getPayload())));
 
         commandMap.put("*", () -> trie.setGlobalByte((byte)
-                (currCube.getRWNode().getPayload() * trie.getGlobalByte())));
+                (trie.getGlobalByte() * currCube.getRWNode().getPayload())));
 
         commandMap.put("/", () -> trie.setGlobalByte((byte)
-                (currCube.getRWNode().getPayload() / trie.getGlobalByte())));
+                (trie.getGlobalByte() / currCube.getRWNode().getPayload())));
 
         commandMap.put("%", () -> trie.setGlobalByte((byte)
-                (currCube.getRWNode().getPayload() % trie.getGlobalByte())));
+                (trie.getGlobalByte() % currCube.getRWNode().getPayload())));
 
         commandMap.put("{", () -> {
-            if (trie.getGlobalByte() == 0)
-                while (!instructions[pc].equals("}")) pc++;
-            else
-                openBracketLocations.push(pc);
+            if (trie.getGlobalByte() == 0) {
+                int openBracketCounter = 1;
 
+                while (openBracketCounter != 0) {
+                    pc++;
+
+                    if (instructions[pc].equals("{"))
+                        openBracketCounter++;
+                    else if (instructions[pc].equals("}"))
+                        openBracketCounter--;
+                }
+            } else
+                openBracketLocations.push(pc);
         });
 
         // minus 1 is necessary because pc is incremented by default in
@@ -226,27 +239,54 @@ public class Interpreter {
         commandMap.put("}", () -> pc = openBracketLocations.pop() - 1);
 
         commandMap.put("[", () -> {
-            if (trie.getGlobalByte() != 0)
-                while (!instructions[pc].equals("]")) pc++;
-            else
+            if (trie.getGlobalByte() != 0) {
+                int openBracketCounter = 1;
+
+                while (openBracketCounter != 0) {
+                    pc++;
+
+                    if (instructions[pc].equals("["))
+                        openBracketCounter++;
+                    else if (instructions[pc].equals("]"))
+                        openBracketCounter--;
+                }
+            } else
                 openBracketLocations.push(pc);
         });
 
         commandMap.put("]", () -> pc = openBracketLocations.pop() - 1);
 
         commandMap.put("<", () -> {
-            if (currCube.getRWNode().getPayload() == 0)
-                while (!instructions[pc].equals(">")) pc++;
-            else
+            if (currCube.getRWNode().getPayload() == 0) {
+                int openBracketCounter = 1;
+
+                while (openBracketCounter != 0) {
+                    pc++;
+
+                    if (instructions[pc].equals("<"))
+                        openBracketCounter++;
+                    else if (instructions[pc].equals(">"))
+                        openBracketCounter--;
+                }
+            } else
                 openBracketLocations.push(pc);
         });
 
         commandMap.put(">", () -> pc = openBracketLocations.pop() - 1);
 
         commandMap.put("(", () -> {
-            if (currCube.getRWNode().getPayload() != 0)
-                while (!instructions[pc].equals(")")) pc++;
-            else
+            if (currCube.getRWNode().getPayload() != 0) {
+                int openBracketCounter = 1;
+
+                while (openBracketCounter != 0) {
+                    pc++;
+
+                    if (instructions[pc].equals("("))
+                        openBracketCounter++;
+                    else if (instructions[pc].equals(")"))
+                        openBracketCounter--;
+                }
+            } else
                 openBracketLocations.push(pc);
         });
 
