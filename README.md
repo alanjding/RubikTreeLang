@@ -43,6 +43,8 @@ The Converter takes two command-line arguments. The first is the source BF file;
 
 Be warned that the code produced by the Converter ranks among the ugliest things known to man, so think twice before you let it do its thing. Also note that BF programs that use cells to the left of the starting cell will not run properly.
 
+Aside: The possibility of mapping any BF program to a RubikTreeLang program proves that RubikTreeLang is Turing-complete.
+
 ## Running the Executables
 
 From the project root directory, type `cd bin` in the command line to enter the directory containing all of the executables - the Interpreter, Visualizer, and Converter.
