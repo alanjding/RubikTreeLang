@@ -1,1 +1,1 @@
-inputc ptg { outputc inputc ptg }
+inputc < outputc inputc >

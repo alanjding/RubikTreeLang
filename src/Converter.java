@@ -38,7 +38,71 @@ public class Converter {
     private static Map<Character, String> createCommandMap() {
         Map<Character, String> commandMap = new HashMap<>();
 
-        commandMap.put('>', "");
+        commandMap.put('>', "inputd ptg [ F v setd 25 + ^ ] g-- [ F v setd 25" +
+                " + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F x v setd 25 + ^ ] g--" +
+                " [ F v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F v setd" +
+                " 25 + ^ ] g-- [ F y v setd 25 + ^ ] g-- [ F v setd 25 + ^ ]" +
+                " g-- [ F v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F x v" +
+                " setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F v setd 25 + ^" +
+                " ] g-- [ F v setd 25 + ^ ] g-- [ F y v setd 25 + ^ ] g-- [ F" +
+                " v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F v setd 25 +" +
+                " ^ ] g-- [ F x v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [" +
+                " F v setd 25 + ^ ] g-- [ F v setd 25 + ^ ] g-- [ F y v g++ ]" +
+                " g--");
+
+        commandMap.put('<', "[ ^ y' F' v setd 47 + ^ ] g-- [ v setd 23 + ^ F'" +
+                " ] g-- [ v setd 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g-- [ v" +
+                " setd 23 + ^ x' F' ] g-- [ v setd 23 + ^ F' ] g-- [ v setd" +
+                " 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g-- [ v setd 23 + ^ y'" +
+                " F' ] g-- [ v setd 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g--" +
+                " [ v setd 23 + ^ F' ] g-- [ v setd 23 + ^ x' F' ] g-- [ v" +
+                " setd 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g-- [ v setd 23 +" +
+                " ^ F' ] g-- [ v setd 23 + ^ y' F' ] g-- [ v setd 23 + ^ F' ]" +
+                " g-- [ v setd 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g-- [ v" +
+                " setd 23 + ^ x' F' ] g-- [ v setd 23 + ^ F' ] g-- [ v setd" +
+                " 23 + ^ F' ] g-- [ v setd 23 + ^ F' ] g--");
+
+        commandMap.put('[', "<");
+        commandMap.put(']', ">");
+
+        commandMap.put('+', "[ ptg F v setd 1 + ^ F' gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 + ^ gtp gsetd 24 ] g-- [ ptg v setd 1 + ^ gtp" +
+                " gsetd 24 ] g--");
+
+        commandMap.put('-', "[ ptg F v setd 1 - ^ F' gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg" +
+                " v setd 1 - ^ gtp gsetd 24 ] g-- [ ptg v setd 1 - ^ gtp" +
+                " gsetd 24 ] g--");
+
+        commandMap.put(',', "inputc");
+        commandMap.put('.', "outputc");
 
         return commandMap;
     }

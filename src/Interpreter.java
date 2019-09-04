@@ -234,6 +234,24 @@ public class Interpreter {
 
         commandMap.put("]", () -> pc = openBracketLocations.pop() - 1);
 
+        commandMap.put("<", () -> {
+            if (currCube.getRWNode().getPayload() == 0)
+                while (!instructions[pc].equals(">")) pc++;
+            else
+                openBracketLocations.push(pc);
+        });
+
+        commandMap.put(">", () -> pc = openBracketLocations.pop() - 1);
+
+        commandMap.put("(", () -> {
+            if (currCube.getRWNode().getPayload() != 0)
+                while (!instructions[pc].equals(")")) pc++;
+            else
+                openBracketLocations.push(pc);
+        });
+
+        commandMap.put(")", () -> pc = openBracketLocations.pop() - 1);
+
         commandMap.put("v", () -> {
             Node node = currCube.getRWNode();
             if (node.getChild() == null) {

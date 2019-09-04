@@ -43,7 +43,7 @@ The Converter takes two command-line arguments. The first is the source BF file;
 
 ## Commands
 
-RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), enter-if-zero brackets (`[`, `]`), enter-if-nonzero brackets (`{`, `}`), traverse down `v`, traverse up `^`, parent to child `ptc`, child to parent `ctp`, increment global `g++`, and decrement global `g--`. Comments are also supported with the command `#`.
+RubikTreeLang supports the following commands: moves, set `set_ arg`, set global `gset_ arg`, copy global to payload `gtp`, copy payload to global `ptg`, input `input_`, output `output_`, arithmetic operators (`+`, `-`, `*`, `/`, `%`), global-enter-if-zero brackets (`[`, `]`), global-enter-if-nonzero brackets (`{`, `}`), local-enter-if-zero brackets (`(`, `)`), local-enter-if-nonzero brackets (`<`, `>`) traverse down `v`, traverse up `^`, parent to child `ptc`, child to parent `ctp`, increment global `g++`, and decrement global `g--`. Comments are also supported with the command `#`.
 
 Commands and their arguments are to be delimited by whitespace of some sort.
 
@@ -122,15 +122,23 @@ The output unary operator prints the payload of the cell at the read-write head 
 
 These are no-arg operators that take input from the cell under the read-write head and the global byte and writing the result of applying the operator to the global byte. The symbols are consistent with most civilized languages, i.e. `+` is addition, `-` is subtraction, `*` is multiplication, `/` is integer division, and `%` is modulo (remainder). Of course, since the sources and destinations of the operator are fixed, in code, one simply types the operator and the operator alone to use them (i.e. `*` as opposed to something like `3*4`).
 
-### Enter-if-nonzero brackets `{`, `}`
+### Global-enter-if-nonzero brackets `{`, `}`
 
-At an open enter-if-nonzero bracket, the interpreter checks whether the global byte is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close enter-if-nonzero bracket. Once the program counter reaches the close enter-if-nonzero bracket, it goes back to the corresponding open enter-if-unequal bracket, and the condition is checked again.
+At an open global-enter-if-nonzero bracket, the interpreter checks whether the global byte is `0`. If _not_, then the code's program counter enters the brackets and goes along until it hits the corresponding close global-enter-if-nonzero bracket. Once the program counter reaches the close global-enter-if-nonzero bracket, it goes back to the corresponding open global-enter-if-unequal bracket, and the condition is checked again.
 
-### Enter-if-zero brackets `[`, `]`
+### Global-enter-if-zero brackets `[`, `]`
 
-Works in the same way as the enter-if-nonzero brackets but enters if (and only if) the global byte is `0`.
+Works in the same way as the global-enter-if-nonzero brackets but enters if (and only if) the global byte is `0`.
 
-N.B.: nothing will stop you from intermixing `{` and `[` (e.g. `{[}]`), but the interpreter's behavior is undefined in this case!
+### Local-enter-if-nonzero brackets `<`, `>`
+
+Works in the same way as the previous two brackets but enters if and only if the payload byte of the cell under the read-write head is nonzero.
+
+### Local-enter-if-zero brackets `(`, `)`
+
+Works in the same way as the previous three brackets but enters if and only if the payload byte of the cell under the read-write head is zero.
+
+N.B.: nothing will stop you from intermixing brackets (e.g. `({[)<}>]`), but the interpreter's behavior is undefined in this case!
 
 ### Traverse down `v` and traverse up `^`
 
